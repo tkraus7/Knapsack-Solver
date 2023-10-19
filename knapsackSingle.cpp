@@ -15,7 +15,6 @@ void solveKnapsackSingle(Knapsack *k) {
         k->KNAPSACK[0][i] = k->WEIGHTS[0][1];
     }
 
-
     for (int i = 1; i < k->numOfWeights; i++) {
         for (int j = 1; j <= k->maxWeight; j++) {
             if (j >= k->WEIGHTS[i][0]) {
@@ -24,7 +23,6 @@ void solveKnapsackSingle(Knapsack *k) {
             } else {
                 k->KNAPSACK[i][j] = k->KNAPSACK[i - 1][j];
             }
-
         }
     }
 
@@ -34,5 +32,4 @@ void solveKnapsackSingle(Knapsack *k) {
         }
         std::cout << std::endl;
     }
-
 }

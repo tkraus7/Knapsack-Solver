@@ -6,11 +6,10 @@
 
 using namespace std;
 
-
-Knapsack* readFromFile(ifstream& in) {
+Knapsack *readFromFile(ifstream &in) {
     int maxWeight, numOfWeights;
     in >> maxWeight >> numOfWeights;
-    Knapsack* k = new Knapsack(maxWeight, numOfWeights);
+    Knapsack *k = new Knapsack(maxWeight, numOfWeights);
 
     int weight, cost;
     for (int i = 0; i < numOfWeights; i++) {
@@ -27,12 +26,15 @@ Knapsack* readFromFile(ifstream& in) {
     return k;
 }
 
-int main(int argc, char** argv) {
-    Knapsack* k = nullptr;
+int main(int argc, char **argv) {
+    Knapsack *k = nullptr;
 
     for (int i = 1; i < argc; i++) {
         string arg(argv[i]);
-        if (arg == "-p" || arg == "--parallel") {
+        if (arg == "-h" || arg == "--help") {
+            cout << helpText << endl;
+            return 0;
+        } else if (arg == "-p" || arg == "--parallel") {
             cout << "Running program with multiple threads" << endl;
         } else if (arg == "-f" || arg == "--file") {
             if (i + 1 >= argc) {
@@ -47,15 +49,17 @@ int main(int argc, char** argv) {
             }
             k = readFromFile(file);
         } else {
-            cerr << "ERROR: Unknown command line argument: " << arg << endl;
-            return 1;
+            cout << "ERROR: Unknown command line argument: " << arg << endl;
+            cout << "Try '-h' or '--help' for more information." << endl;
+            return 0;
         }
     }
 
-    solveKnapsackSingle(k);
-
     if (k) {
+        solveKnapsackSingle(k);
         delete k;
+    } else {
+        cout << helpText << endl;
     }
 
     return 0;
