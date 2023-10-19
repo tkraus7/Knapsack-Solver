@@ -10,11 +10,11 @@ public:
 
     Knapsack();
 
-    Knapsack(int knapsackWeight, int numOfWeights1) : maxWeight(knapsackWeight), numOfWeights(numOfWeights1) {
-        KNAPSACK = new int *[numOfWeights1];
-        WEIGHTS = new int *[numOfWeights1];
-        for (int i = 0; i < numOfWeights1; i++) {
-            KNAPSACK[i] = new int[knapsackWeight];
+    Knapsack(int knapsackWeight, int totalNumOfWeights) : maxWeight(knapsackWeight), numOfWeights(totalNumOfWeights) {
+        KNAPSACK = new int *[totalNumOfWeights];
+        WEIGHTS = new int *[totalNumOfWeights];
+        for (int i = 0; i < totalNumOfWeights; i++) {
+            KNAPSACK[i] = new int[knapsackWeight + 1]();
             WEIGHTS[i] = new int[2];
         }
     }
@@ -34,8 +34,8 @@ public:
 };
 
 
-void solveKnapsackSingle(Knapsack &k);
+void solveKnapsackSingle(Knapsack *k);
 
-void solveKnapsackParallel(Knapsack &k);
+//void solveKnapsackParallel(Knapsack &k);
 
 #endif //PCC_SEMESTRAL_PROJECT_KNAPSACK_H

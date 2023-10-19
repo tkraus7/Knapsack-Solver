@@ -52,6 +52,8 @@ int main(int argc, char** argv) {
         }
     }
 
+    solveKnapsackSingle(k);
+
     if (k) {
         delete k;
     }
