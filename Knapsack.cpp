@@ -1,16 +1,9 @@
-#include "knapsackSingle.h"
+#include "Knapsack.h"
 
+#include <fstream>
 #include <iostream>
 
-const int &max(const int &a, const int &b) {
-    return a < b ? b : a;
-}
-
-int worseMax(int a, int b) {
-    return a < b ? b : a;
-}
-
-void KnapsackSingle::allocateSpace(int knapsackWeight, int totalNumOfWeights) {
+void Knapsack::allocateSpace(int knapsackWeight, int totalNumOfWeights) {
     maxWeight = knapsackWeight;
     numOfWeights = totalNumOfWeights;
     KNAPSACK = new int *[totalNumOfWeights];
@@ -21,11 +14,7 @@ void KnapsackSingle::allocateSpace(int knapsackWeight, int totalNumOfWeights) {
     }
 }
 
-KnapsackSingle::KnapsackSingle(int knapsackWeight, int totalNumOfWeights) {
-    allocateSpace(knapsackWeight, totalNumOfWeights);
-}
-
-KnapsackSingle::KnapsackSingle(std::ifstream &in) {
+Knapsack::Knapsack(std::ifstream &in) {
     int maxWeight, numOfWeights;
     in >> maxWeight >> numOfWeights;
     allocateSpace(maxWeight, numOfWeights);
@@ -38,24 +27,7 @@ KnapsackSingle::KnapsackSingle(std::ifstream &in) {
     }
 }
 
-void KnapsackSingle::solveKnapsack() {
-    for (int i = WEIGHTS[0][0]; i <= maxWeight; i++) {
-        KNAPSACK[0][i] = WEIGHTS[0][1];
-    }
-
-    for (int i = 1; i < numOfWeights; i++) {
-        for (int j = 1; j <= maxWeight; j++) {
-            if (j >= WEIGHTS[i][0]) {
-                KNAPSACK[i][j] = max(KNAPSACK[i - 1][j],
-                                     WEIGHTS[i][1] + KNAPSACK[i - 1][j - WEIGHTS[i][0]]);
-            } else {
-                KNAPSACK[i][j] = KNAPSACK[i - 1][j];
-            }
-        }
-    }
-}
-
-void KnapsackSingle::backtrackSolution() {
+void Knapsack::backtrackSolution() {
     int i = numOfWeights - 1, j = maxWeight;
     optCost = KNAPSACK[i][j];
 
@@ -75,10 +47,9 @@ void KnapsackSingle::backtrackSolution() {
     if (current != 0 && j != 0) {
         solution.push_back(std::pair<int, int>(WEIGHTS[0][0], WEIGHTS[0][1]));
     }
-
 }
 
-void KnapsackSingle::printKnapsack() {
+void Knapsack::printKnapsack() {
     for (int i = 0; i < numOfWeights; i++) {
         for (int j = 0; j <= maxWeight; j++) {
             std::cout << KNAPSACK[i][j] << " ";
@@ -87,14 +58,14 @@ void KnapsackSingle::printKnapsack() {
     }
 }
 
-void KnapsackSingle::printSolution() {
+void Knapsack::printSolution() {
     std::cout << optCost << " " << solution.size() << std::endl;
     for (auto p: solution) {
         std::cout << p.first << " " << p.second << std::endl;
     }
 }
 
-void KnapsackSingle::printSolutionVerbose() {
+void Knapsack::printSolutionVerbose() {
     std::cout << "---------------------------------------------\n";
     std::cout << "optimal cost: " << optCost << "\nnumber of weights used: " << solution.size() << std::endl;
     std::cout << "---------------------------------------------\n";
@@ -105,7 +76,7 @@ void KnapsackSingle::printSolutionVerbose() {
     std::cout << "---------------------------------------------\n";
 }
 
-KnapsackSingle::~KnapsackSingle() {
+Knapsack::~Knapsack() {
     for (int i = 0; i < numOfWeights; i++) {
         delete[] KNAPSACK[i];
         delete[] WEIGHTS[i];

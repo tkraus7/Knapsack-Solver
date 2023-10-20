@@ -3,8 +3,8 @@
 #include <fstream>
 #include <chrono>
 
-#include "knapsack.h"
-#include "knapsackSingle.h"
+#include "Knapsack.h"
+#include "KnapsackSingle.h"
 
 using namespace std;
 

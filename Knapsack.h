@@ -2,6 +2,7 @@
 #define PCC_SEMESTRAL_PROJECT_KNAPSACK_H
 
 #include <vector>
+#include <fstream>
 
 inline const char *helpText =
         "Usage: ./KnapsackSolver [OPTION]...\n"
@@ -19,23 +20,31 @@ inline const char *helpText =
         "                                           using multiple threads.\n";
 
 class Knapsack {
-public:
-    int maxWeight;
-    int numOfWeights;
     int optCost;
     std::vector<std::pair<int, int>> solution;
 
+    void allocateSpace(int knapsackWeight, int totalNumOfWeights);
+
+public:
+    int maxWeight;
+    int numOfWeights;
+
+    int **KNAPSACK;
+    int **WEIGHTS;
+
+    Knapsack(std::ifstream &in);
+
     virtual void solveKnapsack() = 0;
 
-    virtual void backtrackSolution() = 0;
+    void backtrackSolution();
 
-    virtual void printKnapsack() = 0;
+    void printKnapsack();
 
-    virtual void printSolution() = 0;
+    void printSolution();
 
-    virtual void printSolutionVerbose() = 0;
+    void printSolutionVerbose();
 
-    virtual ~Knapsack() {}
+    ~Knapsack();
 };
 
 
