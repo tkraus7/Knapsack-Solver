@@ -44,6 +44,14 @@ public:
 
     void printSolutionVerbose();
 
+    const int &max(const int &a, const int &b) {
+        return a < b ? b : a;
+    }
+
+    int worseMax(int a, int b) {
+        return a < b ? b : a;
+    }
+
     ~Knapsack();
 };
 

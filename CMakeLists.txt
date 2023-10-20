@@ -8,6 +8,12 @@ add_executable(KnapsackSolver main.cpp
         Knapsack.h
         KnapsackSingle.h
         Knapsack.cpp
+        KnapsackParallel.cpp
+        KnapsackParallel.h
 )
 
 set_target_properties(${pcc_semestral_project} PROPERTIES OUTPUT_NAME "KnapsackSolver")
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(KnapsackSolver Threads::Threads)

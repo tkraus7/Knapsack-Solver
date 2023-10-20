@@ -1,12 +1,6 @@
 #include "KnapsackSingle.h"
 
-const int &max(const int &a, const int &b) {
-    return a < b ? b : a;
-}
 
-int worseMax(int a, int b) {
-    return a < b ? b : a;
-}
 
 KnapsackSingle::KnapsackSingle(std::ifstream &in) : Knapsack(in) {}
 
