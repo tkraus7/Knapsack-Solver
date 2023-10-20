@@ -5,18 +5,19 @@
 #include <list>
 #include <mutex>
 #include <condition_variable>
+#include <atomic>
 #include "Knapsack.h"
 
 class KnapsackParallel : public Knapsack {
     int numOfThreads;
-    int currentlyWorking;
+    std::atomic<int> currentlyWorking;
 
     std::thread supportThread;
     std::vector<std::thread> threadPool;
     std::list<std::tuple<int, int, int>> queue;
 
-    std::mutex queue_mu;
-    std::condition_variable cv;
+    std::mutex queueMu, workingMu;
+    std::condition_variable queueCv, workingCv;
 
     void worker(std::tuple<int, int, int> job) ;
     void joinAll();

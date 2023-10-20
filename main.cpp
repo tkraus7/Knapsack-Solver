@@ -5,6 +5,7 @@
 
 #include "Knapsack.h"
 #include "KnapsackSingle.h"
+#include "KnapsackParallel.h"
 
 using namespace std;
 
@@ -49,7 +50,8 @@ int main(int argc, char **argv) {
         }
     }
 
-    KnapsackSingle k(file);
+//    KnapsackSingle k(file);
+    KnapsackParallel k(file, 2);
 
     auto start = std::chrono::high_resolution_clock::now();
     k.solveKnapsack();
