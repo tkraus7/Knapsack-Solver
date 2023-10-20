@@ -1,12 +1,17 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <chrono>
 
 #include "knapsack.h"
 #include "knapsackSingle.h"
 
 using namespace std;
 
+template <typename TimePoint>
+std::chrono::milliseconds to_ms(TimePoint tp) {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(tp);
+}
 
 int main(int argc, char **argv) {
     ifstream file;
@@ -46,15 +51,19 @@ int main(int argc, char **argv) {
 
     KnapsackSingle k(file);
 
+    auto start = std::chrono::high_resolution_clock::now();
     k.solveKnapsack();
     k.backtrackSolution();
+    auto end = std::chrono::high_resolution_clock::now();
+
+    k.printKnapsack();
 
     if (useVerbose) {
         k.printSolutionVerbose();
     } else {
         k.printSolution();
     }
-
+    cout << "Computation took: " << to_ms(end - start).count() << " ms" << endl;
 
     return 0;
 }

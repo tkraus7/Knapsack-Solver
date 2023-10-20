@@ -60,9 +60,11 @@ void KnapsackSingle::backtrackSolution() {
     optCost = KNAPSACK[i][j];
 
     int current;
-    while (i != 0 && j != 0) {
+    while (i != 0) {
         current = KNAPSACK[i][j];
-        if (KNAPSACK[i-1][j] == current) {
+        if (current == 0) {
+            break;
+        } else if (KNAPSACK[i - 1][j] == current) {
             i--;
         } else {
             solution.push_back(std::pair<int, int>(WEIGHTS[i][0], WEIGHTS[i][1]));
@@ -70,6 +72,10 @@ void KnapsackSingle::backtrackSolution() {
             i--;
         }
     }
+    if (current != 0 && j != 0) {
+        solution.push_back(std::pair<int, int>(WEIGHTS[0][0], WEIGHTS[0][1]));
+    }
+
 }
 
 void KnapsackSingle::printKnapsack() {
@@ -90,11 +96,11 @@ void KnapsackSingle::printSolution() {
 
 void KnapsackSingle::printSolutionVerbose() {
     std::cout << "---------------------------------------------\n";
-    std::cout << "total cost: " << optCost << "\nnumber of weights used: " << solution.size() << std::endl;
+    std::cout << "optimal cost: " << optCost << "\nnumber of weights used: " << solution.size() << std::endl;
     std::cout << "---------------------------------------------\n";
-    std::cout << "weight    cost\n";
+    std::cout << "weight\t\tcost\n";
     for (auto p: solution) {
-        std::cout << p.first << "\t" << p.second << std::endl;
+        std::cout << p.first << "\t\t" << p.second << std::endl;
     }
     std::cout << "---------------------------------------------\n";
 }
