@@ -10,6 +10,7 @@ inline const char *helpText =
         "   -f, --file [FILENAME]   read input data from file\n"
         "   -h, --help              show this message\n"
         "   -p, --parallel          run the multi-threaded version of this program\n"
+        "   -v, --verbose           print the verbose version of the solution\n"
         "\n"
         "Examples:\n"
         "   ./KnapsackSolver -f ../data/pub01.in    Find optimal solution for knapsack problem described in\n"
@@ -31,6 +32,8 @@ public:
     virtual void printKnapsack() = 0;
 
     virtual void printSolution() = 0;
+
+    virtual void printSolutionVerbose() = 0;
 
     virtual ~Knapsack() {}
 };

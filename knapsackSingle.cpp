@@ -82,10 +82,21 @@ void KnapsackSingle::printKnapsack() {
 }
 
 void KnapsackSingle::printSolution() {
-    std::cout << "cost: " << optCost << std::endl;
+    std::cout << optCost << " " << solution.size() << std::endl;
     for (auto p: solution) {
         std::cout << p.first << " " << p.second << std::endl;
     }
+}
+
+void KnapsackSingle::printSolutionVerbose() {
+    std::cout << "---------------------------------------------\n";
+    std::cout << "total cost: " << optCost << "\nnumber of weights used: " << solution.size() << std::endl;
+    std::cout << "---------------------------------------------\n";
+    std::cout << "weight    cost\n";
+    for (auto p: solution) {
+        std::cout << p.first << "\t" << p.second << std::endl;
+    }
+    std::cout << "---------------------------------------------\n";
 }
 
 KnapsackSingle::~KnapsackSingle() {

@@ -24,6 +24,8 @@ public:
 
     void printSolution();
 
+    void printSolutionVerbose();
+
     ~KnapsackSingle();
 };
 
