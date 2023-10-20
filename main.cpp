@@ -1,18 +1,14 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include <chrono>
 
 #include "Knapsack.h"
 #include "KnapsackSingle.h"
 #include "KnapsackParallel.h"
+#include "utils.h"
 
 using namespace std;
 
-template <typename TimePoint>
-std::chrono::milliseconds to_ms(TimePoint tp) {
-    return std::chrono::duration_cast<std::chrono::milliseconds>(tp);
-}
 
 void run(Knapsack &k, bool verbose) {
     auto start = std::chrono::high_resolution_clock::now();
@@ -45,8 +41,10 @@ int main(int argc, char **argv) {
         if (arg == "-h" || arg == "--help") {
             cout << helpText << endl;
             return 0;
+        } else if (arg == "-g" || arg == "--generate") {
+            generateInput();
+            return 0;
         } else if (arg == "-p" || arg == "--parallel") {
-            std::cout << "Running program with multiple threads\n";
             if (i + 1 >= argc) {
                 cerr << "ERROR: Number of threads not specified" << endl;
                 return 1;
@@ -57,6 +55,7 @@ int main(int argc, char **argv) {
                 return 1;
             }
             useThreads = true;
+            cout << "Running program with multiple threads\n";
         } else if (arg == "-v" || arg == "--verbose") {
             useVerbose = true;
         } else if (arg == "-f" || arg == "--file") {

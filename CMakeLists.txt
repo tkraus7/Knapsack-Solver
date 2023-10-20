@@ -10,6 +10,8 @@ add_executable(KnapsackSolver main.cpp
         Knapsack.cpp
         KnapsackParallel.cpp
         KnapsackParallel.h
+        utils.cpp
+        utils.h
 )
 
 set_target_properties(${pcc_semestral_project} PROPERTIES OUTPUT_NAME "KnapsackSolver")
