@@ -3,31 +3,13 @@
 #include <fstream>
 
 #include "knapsack.h"
+#include "knapsackSingle.h"
 
 using namespace std;
 
-Knapsack *readFromFile(ifstream &in) {
-    int maxWeight, numOfWeights;
-    in >> maxWeight >> numOfWeights;
-    Knapsack *k = new Knapsack(maxWeight, numOfWeights);
-
-    int weight, cost;
-    for (int i = 0; i < numOfWeights; i++) {
-        in >> weight >> cost;
-        k->WEIGHTS[i][0] = weight;
-        k->WEIGHTS[i][1] = cost;
-    }
-
-    cout << "weight: " << maxWeight << " numWeights: " << numOfWeights << endl;
-    for (int i = 0; i < numOfWeights; i++) {
-        cout << k->WEIGHTS[i][0] << " " << k->WEIGHTS[i][1] << endl;
-    }
-
-    return k;
-}
 
 int main(int argc, char **argv) {
-    Knapsack *k = nullptr;
+    ifstream file;
 
     for (int i = 1; i < argc; i++) {
         string arg(argv[i]);
@@ -42,12 +24,11 @@ int main(int argc, char **argv) {
                 return 1;
             }
 
-            ifstream file(argv[++i]);
+            file = ifstream (argv[++i]);
             if (!file.good()) {
                 cerr << "ERROR: File not found: " << argv[i] << endl;
                 return 1;
             }
-            k = readFromFile(file);
         } else {
             cout << "ERROR: Unknown command line argument: " << arg << endl;
             cout << "Try '-h' or '--help' for more information." << endl;
@@ -55,12 +36,11 @@ int main(int argc, char **argv) {
         }
     }
 
-    if (k) {
-        solveKnapsackSingle(k);
-        delete k;
-    } else {
-        cout << helpText << endl;
-    }
+    KnapsackSingle k(file);
+
+    k.solveKnapsack();
+    k.backtrackSolution();
+    k.printSolution();
 
     return 0;
 }

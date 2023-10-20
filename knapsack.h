@@ -1,6 +1,8 @@
 #ifndef PCC_SEMESTRAL_PROJECT_KNAPSACK_H
 #define PCC_SEMESTRAL_PROJECT_KNAPSACK_H
 
+#include <vector>
+
 inline const char *helpText =
         "Usage: ./KnapsackSolver [OPTION]...\n"
         "Find the optimal solution for knapsack problem 0-1.\n"
@@ -17,36 +19,21 @@ inline const char *helpText =
 
 class Knapsack {
 public:
-    int **KNAPSACK;
-    int **WEIGHTS;
     int maxWeight;
     int numOfWeights;
+    int optCost;
+    std::vector<std::pair<int, int>> solution;
 
-    Knapsack();
+    virtual void solveKnapsack() = 0;
 
-    Knapsack(int knapsackWeight, int totalNumOfWeights) : maxWeight(knapsackWeight), numOfWeights(totalNumOfWeights) {
-        KNAPSACK = new int *[totalNumOfWeights];
-        WEIGHTS = new int *[totalNumOfWeights];
-        for (int i = 0; i < totalNumOfWeights; i++) {
-            KNAPSACK[i] = new int[knapsackWeight + 1]();
-            WEIGHTS[i] = new int[2];
-        }
-    }
+    virtual void backtrackSolution() = 0;
 
-    void backtrackSolution();
+    virtual void printKnapsack() = 0;
 
-    ~Knapsack() {
-        for (int i = 0; i < numOfWeights; i++) {
-            delete[] KNAPSACK[i];
-            delete[] WEIGHTS[i];
-        }
-        delete[] KNAPSACK;
-        delete[] WEIGHTS;
-    }
+    virtual void printSolution() = 0;
+
+    virtual ~Knapsack() {}
 };
 
-void solveKnapsackSingle(Knapsack *k);
-
-//void solveKnapsackParallel(Knapsack &k);
 
 #endif //PCC_SEMESTRAL_PROJECT_KNAPSACK_H
