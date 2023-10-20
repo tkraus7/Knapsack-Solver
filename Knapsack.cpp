@@ -67,7 +67,9 @@ void Knapsack::printSolution() {
 
 void Knapsack::printSolutionVerbose() {
     std::cout << "---------------------------------------------\n";
-    std::cout << "optimal cost: " << optCost << "\nnumber of weights used: " << solution.size() << std::endl;
+    std::cout << "optimal cost: " << optCost << std::endl;
+    std::cout << "total weight: " << sumWeight() << std::endl;
+    std::cout << "number of weights used: " << solution.size() << std::endl;
     std::cout << "---------------------------------------------\n";
     std::cout << "weight\t\tcost\n";
     for (auto p: solution) {

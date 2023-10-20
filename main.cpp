@@ -14,9 +14,26 @@ std::chrono::milliseconds to_ms(TimePoint tp) {
     return std::chrono::duration_cast<std::chrono::milliseconds>(tp);
 }
 
+void run(Knapsack &k, bool verbose) {
+    auto start = std::chrono::high_resolution_clock::now();
+    k.solveKnapsack();
+    k.backtrackSolution();
+    auto end = std::chrono::high_resolution_clock::now();
+
+//    k.printKnapsack();
+
+    if (verbose) {
+        k.printSolutionVerbose();
+    } else {
+        k.printSolution();
+    }
+    cout << "Computation took: " << to_ms(end - start).count() << " ms" << endl;
+}
+
 int main(int argc, char **argv) {
     ifstream file;
     bool useThreads = false, useVerbose = false;
+    int numOfThreads;
 
     if (argc == 1) {
         cout << helpText << endl;
@@ -29,7 +46,16 @@ int main(int argc, char **argv) {
             cout << helpText << endl;
             return 0;
         } else if (arg == "-p" || arg == "--parallel") {
-            cout << "Running program with multiple threads" << endl;
+            std::cout << "Running program with multiple threads\n";
+            if (i + 1 >= argc) {
+                cerr << "ERROR: Number of threads not specified" << endl;
+                return 1;
+            }
+            numOfThreads = atoi(argv[++i]);
+            if (numOfThreads == 0) {
+                cerr << "ERROR: Bad value:" << argv[i] << endl;
+                return 1;
+            }
             useThreads = true;
         } else if (arg == "-v" || arg == "--verbose") {
             useVerbose = true;
@@ -50,22 +76,14 @@ int main(int argc, char **argv) {
         }
     }
 
-//    KnapsackSingle k(file);
-    KnapsackParallel k(file, 2);
 
-    auto start = std::chrono::high_resolution_clock::now();
-    k.solveKnapsack();
-    k.backtrackSolution();
-    auto end = std::chrono::high_resolution_clock::now();
-
-    k.printKnapsack();
-
-    if (useVerbose) {
-        k.printSolutionVerbose();
+    if (useThreads) {
+        KnapsackParallel k(file, numOfThreads);
+        run(k, useVerbose);
     } else {
-        k.printSolution();
+        KnapsackSingle k(file);
+        run(k, useVerbose);
     }
-    cout << "Computation took: " << to_ms(end - start).count() << " ms" << endl;
 
     return 0;
 }

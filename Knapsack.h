@@ -8,10 +8,11 @@ inline const char *helpText =
         "Usage: ./KnapsackSolver [OPTION]...\n"
         "Find the optimal solution for knapsack problem 0-1.\n"
         "\n"
-        "   -f, --file [FILENAME]   read input data from file\n"
-        "   -h, --help              show this message\n"
-        "   -p, --parallel          run the multi-threaded version of this program\n"
-        "   -v, --verbose           print the verbose version of the solution\n"
+        "   -f, --file [FILENAME]       read input data from file\n"
+        "   -h, --help                  show this message\n"
+        "   -p, --parallel [NUMBER]     run the multi-threaded version of this program using the specified\n"
+        "                               number of threads\n"
+        "   -v, --verbose               print the verbose version of the solution\n"
         "\n"
         "Examples:\n"
         "   ./KnapsackSolver -f ../data/pub01.in    Find optimal solution for knapsack problem described in\n"
@@ -24,6 +25,13 @@ class Knapsack {
     std::vector<std::pair<int, int>> solution;
 
     void allocateSpace(int knapsackWeight, int totalNumOfWeights);
+    int sumWeight() {
+        int res = 0;
+        for (auto p: solution) {
+            res += p.first;
+        }
+        return res;
+    }
 
 public:
     int maxWeight;

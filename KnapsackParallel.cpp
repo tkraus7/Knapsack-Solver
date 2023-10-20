@@ -7,13 +7,6 @@ KnapsackParallel::KnapsackParallel(std::ifstream &in, int numOfThreads) :
         numOfThreads(numOfThreads),
         currentlyWorking(0) {}
 
-//void KnapsackParallel::joinAll() {
-//    for (int i = 0; i < threadPool.size(); i++) {
-//        threadPool[i].join();
-//    }
-////    supportThread.join();
-//}
-
 void KnapsackParallel::worker(std::tuple<int, int, int> job) {
     auto [row, begin, end] = job;
     for (; begin < end; begin++) {
