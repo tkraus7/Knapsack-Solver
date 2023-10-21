@@ -8,6 +8,12 @@ double get_random_double() {
     return dist(mt);
 }
 
+/**
+ * Get a random double
+ * @param flo lower bound
+ * @param ceil upper bound
+ * @return the random double
+ */
 double getRandom(double flo, double ceil) {
     return flo + ((ceil - flo) * get_random_double());
 }

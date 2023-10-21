@@ -24,7 +24,13 @@ class Knapsack {
     int optCost;
     std::vector<std::pair<int, int>> solution;
 
+    /**
+     * Allocates space for the main table and the array holding the information about weights.
+     * @param knapsackWeight maximal weight of the knapsack
+     * @param totalNumOfWeights the total number of available weights
+     */
     void allocateSpace(int knapsackWeight, int totalNumOfWeights);
+
     int sumWeight() {
         int res = 0;
         for (auto p: solution) {
@@ -37,19 +43,42 @@ public:
     int maxWeight;
     int numOfWeights;
 
+    /**
+     * A 2D-array used for the main computation.
+     */
     int **KNAPSACK;
+
+    /**
+     * A 2D-array holding the information about available weights.
+     */
     int **WEIGHTS;
 
+    /**
+     * Constructs the Knapsack based on the data stored in a file.
+     * @param in stream from the data file
+     */
     Knapsack(std::ifstream &in);
 
+    /**
+     * Runs the algorithm and fills up the KNAPSACK table.
+     */
     virtual void solveKnapsack() = 0;
 
+    /**
+     * Gets the optimal solution and finds the weights used.
+     */
     void backtrackSolution();
 
     void printKnapsack();
 
+    /**
+     *  Prints the solution in a simple format.
+     */
     void printSolution();
 
+    /**
+     * Prints the solution in a verbose format.
+     */
     void printSolutionVerbose();
 
     const int &max(const int &a, const int &b) {

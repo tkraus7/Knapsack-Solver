@@ -8,11 +8,10 @@
 class KnapsackSingle : public Knapsack {
 
 public:
-//    KnapsackSingle(int knapsackWeight, int totalNumOfWeights);
 
     KnapsackSingle(std::ifstream &in);
 
-    void solveKnapsack();
+    void solveKnapsack() override;
 };
 
 #endif //PCC_SEMESTRAL_PROJECT_KNAPSACKSINGLE_H
