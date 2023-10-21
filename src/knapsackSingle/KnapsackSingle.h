@@ -2,7 +2,7 @@
 #define PCC_SEMESTRAL_PROJECT_KNAPSACKSINGLE_H
 
 #include <fstream>
-#include "Knapsack.h"
+#include "../knapsack/Knapsack.h"
 
 
 class KnapsackSingle : public Knapsack {

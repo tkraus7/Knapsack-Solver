@@ -6,7 +6,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <atomic>
-#include "Knapsack.h"
+#include "../knapsack/Knapsack.h"
 
 class KnapsackParallel : public Knapsack {
     int numOfThreads;

@@ -3,15 +3,15 @@ project(pcc_semestral_project)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(KnapsackSolver main.cpp
-        KnapsackSingle.cpp
-        Knapsack.h
-        KnapsackSingle.h
-        Knapsack.cpp
-        KnapsackParallel.cpp
-        KnapsackParallel.h
-        utils.cpp
-        utils.h
+add_executable(KnapsackSolver src/main.cpp
+        src/knapsackSingle/KnapsackSingle.cpp
+        src/knapsack/Knapsack.h
+        src/knapsackSingle/KnapsackSingle.h
+        src/knapsack/Knapsack.cpp
+        src/knapsackParallel/KnapsackParallel.cpp
+        src/knapsackParallel/KnapsackParallel.h
+        src/utils/utils.cpp
+        src/utils/utils.h
 )
 
 set_target_properties(${pcc_semestral_project} PROPERTIES OUTPUT_NAME "KnapsackSolver")

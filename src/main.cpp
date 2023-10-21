@@ -1,11 +1,10 @@
 #include <iostream>
-#include <vector>
 #include <fstream>
 
-#include "Knapsack.h"
-#include "KnapsackSingle.h"
-#include "KnapsackParallel.h"
-#include "utils.h"
+#include "knapsack/Knapsack.h"
+#include "knapsackSingle/KnapsackSingle.h"
+#include "knapsackParallel/KnapsackParallel.h"
+#include "utils/utils.h"
 
 using namespace std;
 
