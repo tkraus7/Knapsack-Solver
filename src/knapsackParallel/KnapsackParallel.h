@@ -16,6 +16,7 @@ class KnapsackParallel : public Knapsack {
      * on a new row can be started.
      */
     std::atomic<int> currentlyWorking;
+//    int currentlyWorking;
 
     /**
      * Helper thread that fills up the work queue every time a row is finished.

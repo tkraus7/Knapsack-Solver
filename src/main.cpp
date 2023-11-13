@@ -19,10 +19,12 @@ void run(Knapsack &k, bool verbose) {
 
     if (verbose) {
         k.printSolutionVerbose();
+        cout << "Computation took: " << to_ms(end - start).count() << " ms" << endl;
     } else {
         k.printSolution();
+        cout << to_ms(end - start).count() << endl;
     }
-    cout << "Computation took: " << to_ms(end - start).count() << " ms" << endl;
+
 }
 
 int main(int argc, char **argv) {
@@ -54,7 +56,7 @@ int main(int argc, char **argv) {
                 return 1;
             }
             useThreads = true;
-            cout << "Running program with multiple threads\n";
+//            cout << "Running program with multiple threads\n";
         } else if (arg == "-v" || arg == "--verbose") {
             useVerbose = true;
         } else if (arg == "-f" || arg == "--file") {
