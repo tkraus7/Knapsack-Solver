@@ -15,8 +15,8 @@ class KnapsackParallel : public Knapsack {
      * Variable showing the number of currently working threads. If its zero, then work
      * on a new row can be started.
      */
-    std::atomic<int> currentlyWorking;
-//    int currentlyWorking;
+//    std::atomic<int> currentlyWorking;
+    int currentlyWorking;
 
     /**
      * Helper thread that fills up the work queue every time a row is finished.
@@ -31,7 +31,7 @@ class KnapsackParallel : public Knapsack {
     /**
      * Queue of available jobs for threads.
      */
-    std::list<std::tuple<int, int, int>> queue;
+    std::list<std::tuple<unsigned int, unsigned int, unsigned int>> queue;
 
     /**
      * Mutex guarding the job queue.
@@ -43,7 +43,7 @@ class KnapsackParallel : public Knapsack {
      * Helper function that fills up small part of KNAPSACK table described in job.
      * @param job tuple containing information about row, start and end of work to be done
      */
-    void worker(std::tuple<int, int, int> job);
+    void worker(std::tuple<unsigned int, unsigned int, unsigned int> job);
 
 public:
     /**

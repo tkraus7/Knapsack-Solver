@@ -9,7 +9,7 @@ KnapsackParallel::KnapsackParallel(std::ifstream &in, int numOfThreads) :
         numOfThreads(numOfThreads),
         currentlyWorking(0) {}
 
-void KnapsackParallel::worker(std::tuple<int, int, int> job) {
+void KnapsackParallel::worker(std::tuple<unsigned int, unsigned int, unsigned int> job) {
     auto [row, begin, end] = job;
     for (; begin < end; begin++) {
         if (begin >= WEIGHTS[row][0]) {
@@ -28,7 +28,7 @@ void KnapsackParallel::worker(std::tuple<int, int, int> job) {
  */
 void KnapsackParallel::solveKnapsack() {
     /// first row is filled manually in the main thread
-    for (int i = WEIGHTS[0][0]; i <= maxWeight; i++) {
+    for (unsigned int i = WEIGHTS[0][0]; i <= maxWeight; i++) {
         KNAPSACK[0][i] = WEIGHTS[0][1];
     }
 
@@ -41,7 +41,7 @@ void KnapsackParallel::solveKnapsack() {
 
     /// creates the support thread that creates jobs and feeds them to the job queue
     supportThread = std::thread([&]() {
-        for (int i = 1; i <= numOfWeights; i++) {
+        for (unsigned int i = 1; i <= numOfWeights; i++) {
             std::unique_lock<std::mutex> queueLock(queueMu);
 
             /// waits until there are no threads working
@@ -50,8 +50,7 @@ void KnapsackParallel::solveKnapsack() {
             /// then adds new jobs to the job queue
             for (int j = 0; j < numOfWorkers; j++) {
                 currentlyWorking++;
-                queue.push_back(std::tuple<int, int, int>(i, j * oneThreadWork,
-                                                          std::min((j + 1) * oneThreadWork, maxWeight + 1)));
+                queue.emplace_back(i, j * oneThreadWork, min((j + 1) * oneThreadWork, maxWeight + 1));
             }
 
             /// notifies workers that there are jobs available
@@ -62,7 +61,7 @@ void KnapsackParallel::solveKnapsack() {
 
     /// creates the designated number of thread workers and adds them to the thread pool
     for (int i = 0; i < numOfWorkers; i++) {
-        threadPool.push_back(std::thread([&] {
+        threadPool.emplace_back([&] {
             std::tuple<int, int, int> job;
             do {
                 std::unique_lock<std::mutex> queueLock(queueMu);
@@ -89,7 +88,7 @@ void KnapsackParallel::solveKnapsack() {
                     workingCv.notify_one();
                 }
             } while (std::get<0>(job) != numOfWeights);
-        }));
+        });
     }
 
     /// waits for all the threads to finish

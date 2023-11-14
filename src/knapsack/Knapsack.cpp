@@ -3,23 +3,22 @@
 #include <fstream>
 #include <iostream>
 
-void Knapsack::allocateSpace(int knapsackWeight, int totalNumOfWeights) {
+void Knapsack::allocateSpace(unsigned int knapsackWeight, unsigned int totalNumOfWeights) {
     maxWeight = knapsackWeight;
     numOfWeights = totalNumOfWeights;
-    KNAPSACK = new int *[totalNumOfWeights];
-    WEIGHTS = new int *[totalNumOfWeights];
-    for (int i = 0; i < totalNumOfWeights; i++) {
-        KNAPSACK[i] = new int[knapsackWeight + 1]();
-        WEIGHTS[i] = new int[2];
+    KNAPSACK = new unsigned int *[totalNumOfWeights];
+    WEIGHTS = new unsigned int *[totalNumOfWeights];
+    for (size_t i = 0; i < totalNumOfWeights; i++) {
+        KNAPSACK[i] = new unsigned int[knapsackWeight + 1]();
+        WEIGHTS[i] = new unsigned int[2];
     }
 }
 
 Knapsack::Knapsack(std::ifstream &in) {
-    int maxWeight, numOfWeights;
     in >> maxWeight >> numOfWeights;
     allocateSpace(maxWeight, numOfWeights);
 
-    int weight, cost;
+    unsigned int weight, cost;
     for (int i = 0; i < numOfWeights; i++) {
         in >> weight >> cost;
         WEIGHTS[i][0] = weight;
@@ -28,10 +27,10 @@ Knapsack::Knapsack(std::ifstream &in) {
 }
 
 void Knapsack::backtrackSolution() {
-    int i = numOfWeights - 1, j = maxWeight;
+    unsigned int i = numOfWeights - 1, j = maxWeight;
     optCost = KNAPSACK[i][j];
 
-    int current;
+    unsigned int current;
     while (i != 0) {
         current = KNAPSACK[i][j];
         if (current == 0) {
@@ -39,13 +38,13 @@ void Knapsack::backtrackSolution() {
         } else if (KNAPSACK[i - 1][j] == current) {
             i--;
         } else {
-            solution.push_back(std::pair<int, int>(WEIGHTS[i][0], WEIGHTS[i][1]));
+            solution.emplace_back(WEIGHTS[i][0], WEIGHTS[i][1]);
             j -= WEIGHTS[i][0];
             i--;
         }
     }
     if (current != 0 && j != 0) {
-        solution.push_back(std::pair<int, int>(WEIGHTS[0][0], WEIGHTS[0][1]));
+        solution.emplace_back(WEIGHTS[0][0], WEIGHTS[0][1]);
     }
 }
 

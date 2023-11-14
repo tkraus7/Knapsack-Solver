@@ -21,15 +21,15 @@ inline const char *helpText =
 
 
 class Knapsack {
-    int optCost;
-    std::vector<std::pair<int, int>> solution;
+    unsigned int optCost;
+    std::vector<std::pair<unsigned int, unsigned int>> solution;
 
     /**
      * Allocates space for the main table and the array holding the information about weights.
      * @param knapsackWeight maximal weight of the knapsack
      * @param totalNumOfWeights the total number of available weights
      */
-    void allocateSpace(int knapsackWeight, int totalNumOfWeights);
+    void allocateSpace(unsigned int knapsackWeight, unsigned int totalNumOfWeights);
 
     int sumWeight() {
         int res = 0;
@@ -40,24 +40,24 @@ class Knapsack {
     }
 
 public:
-    int maxWeight;
-    int numOfWeights;
+    unsigned int maxWeight;
+    unsigned int numOfWeights;
 
     /**
      * A 2D-array used for the main computation.
      */
-    int **KNAPSACK;
+    unsigned int **KNAPSACK;
 
     /**
      * A 2D-array holding the information about available weights.
      */
-    int **WEIGHTS;
+    unsigned int **WEIGHTS;
 
     /**
      * Constructs the Knapsack based on the data stored in a file.
      * @param in stream from the data file
      */
-    Knapsack(std::ifstream &in);
+    explicit Knapsack(std::ifstream &in);
 
     /**
      * Runs the algorithm and fills up the KNAPSACK table.
@@ -81,12 +81,12 @@ public:
      */
     void printSolutionVerbose();
 
-    const int &max(const int &a, const int &b) {
+    static const unsigned int &max(const unsigned int &a, const unsigned int &b) {
         return a < b ? b : a;
     }
 
-    int worseMax(int a, int b) {
-        return a < b ? b : a;
+    static const unsigned int &min(const unsigned int &a, const unsigned int &b) {
+        return a > b ? b : a;
     }
 
     ~Knapsack();
