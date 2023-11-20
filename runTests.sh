@@ -1,8 +1,6 @@
-#!/bin/bash
-
+#!/usr/bin/bash
 FILES="./data/*"
 IFS=' '
-
 printf '%s\n' "knapscak capacity,number of weights,ST,MT(5),MT(15)"
 for f in $FILES
 do
@@ -11,9 +9,9 @@ do
     capacity=${strarr[0]}
     weights=${strarr[1]}
 
-    resST=$(./cmake-build-debug/KnapsackSolver -f "$f")
-    resMT5=$(./cmake-build-debug/KnapsackSolver -f "$f" -p 5)
-    resMT15=$(./cmake-build-debug/KnapsackSolver -f "$f" -p 15)
+    resST=$(./cmake-build-release/KnapsackSolver -f "$f")
+    resMT5=$(./cmake-build-release/KnapsackSolver -f "$f" -p 5)
+    resMT15=$(./cmake-build-release/KnapsackSolver -f "$f" -p 15)
 
     timeST=$(echo "$resST" | tail -n 1)
     timeMT5=$(echo "$resMT5" | tail -n 1)
