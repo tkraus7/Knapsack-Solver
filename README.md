@@ -4,6 +4,10 @@
 
 Solver for 0-1 Knapsack problem.
 
+### PCC Assignment
+
+Implement a program for solving 0-1 Knapsack problems. Also implement a version of the program running on multiple threads. Then compare both versions.
+
 ## Problem description
 
 Given a set of weights, each with a weight and a cost, determine which weights to include in the collection (Knapsack) so that the total weight is less than or equal to a given limit and the total cost is as large as possible.
@@ -89,6 +93,9 @@ The speed measurement was done against code in commit `65c6a90` on a 6 core i7-8
 |100000000|	30|	2381|	1606|	1589|
 
 </div>
+
+Since the multi-threading implementation only divides each row amongst available threads, it can only overcome the threading overhead when the rows are satisfyingly long.
+On rows that are < ~500'000 numbers long it's better to use the single-thread version.
 
 
 
